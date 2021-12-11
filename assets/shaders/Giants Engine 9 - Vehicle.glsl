@@ -1,7 +1,7 @@
-import lib-sss.glsl
 import lib-pbr.glsl
 import lib-emissive.glsl
 import lib-pom.glsl
+import lib-sampler.glsl
 import lib-utils.glsl
 
 //: metadata {
@@ -48,6 +48,25 @@ uniform float p_wearLevel;
 //: param custom { "default": [0.6, 0.6, 0.6], "label": "Wear Color", "widget": "color", "group": "Wear Parameters" }
 uniform vec3 p_wearColor;
 
+//: param custom { "default": true, "label": "Enable", "group": "Color Mask" }
+uniform bool p_useColorMask;
+//: param custom { "default": [0.8, 0.55, 0.05], "label": "Color ID 1", "widget": "color", "group": "Color Mask" }
+uniform vec3 p_colorID_0;
+//: param custom { "default": [1.0, 0.10, 0.10], "label": "Color ID 2", "widget": "color", "group": "Color Mask" }
+uniform vec3 p_colorID_1;
+//: param custom { "default": [0.10, 1.0, 0.10], "label": "Color ID 3", "widget": "color", "group": "Color Mask" }
+uniform vec3 p_colorID_2;
+//: param custom { "default": [0.10, 0.10, 1.0], "label": "Color ID 4", "widget": "color", "group": "Color Mask" }
+uniform vec3 p_colorID_3;
+//: param custom { "default": [1.0, 1.0, 0.10], "label": "Color ID 5", "widget": "color", "group": "Color Mask" }
+uniform vec3 p_colorID_4;
+//: param custom { "default": [0.05, 0.05, 0.05], "label": "Color ID 6", "widget": "color", "group": "Color Mask" }
+uniform vec3 p_colorID_5;
+//: param custom { "default": [1.0, 0.10, 1.0], "label": "Color ID 7", "widget": "color", "group": "Color Mask" }
+uniform vec3 p_colorID_6;
+//: param custom { "default": [0.10, 1.0, 1.0], "label": "Color ID 8", "widget": "color", "group": "Color Mask" }
+uniform vec3 p_colorID_7;
+
 // Debug
 //: param custom { "default": false, "label": "Debug Mode", "group": "Debug" }
 uniform bool p_debugMode;
@@ -57,11 +76,12 @@ uniform bool p_debugMode;
 //:   "widget": "combobox",
 //:   "group": "Debug",
 //:   "values": {
-//:     "BaseColor": 0,
+//:     "Base Color": 0,
 //:     "Roughness": 1,
 //:     "Metallic": 2,
-//:     "Dirt": 3,
-//:     "Wear": 4
+//:     "AO": 3,
+//:     "Dirt": 4,
+//:     "Wear": 5
 //:   }
 //: }
 uniform int p_debugChannel;
@@ -106,6 +126,16 @@ void shade(V2F inputs)
   applyParallaxOffset(inputs, viewTS);
 
   vec3 baseColor  = getBaseColor(basecolor_tex, inputs.sparse_coord);
+  
+  if (p_useColorMask) {
+    vec3 colorTable[8] = {p_colorID_0, p_colorID_1, p_colorID_2, p_colorID_3, p_colorID_4, p_colorID_5, p_colorID_6, p_colorID_7};
+
+    // UV below 0, Color Mask
+    if (inputs.tex_coord.y < 0) {
+      int id = clamp(int(inputs.tex_coord.x), 0, 7);
+      baseColor = colorTable[id];
+    }
+  }
   vec3 wearMask   = getBaseColorWithDefault(wear_tex, inputs.sparse_coord, 0.0);
   vec3 dirtMask   = getBaseColorWithDefault(dirt_tex, inputs.sparse_coord, 0.0);
   float roughness = getRoughness(roughness_tex, inputs.sparse_coord);
@@ -116,7 +146,7 @@ void shade(V2F inputs)
   float gDirt  = saturate((dirtMask.r * dirtLevel) + mDirt);
 
   metallic  = saturate(metallic + mWear) * p_debugMetallic;
-  metallic *= 1.0 - gDirt;
+  metallic *= 1.0 - gDirt; // Invert
   roughness = lerp(roughness, p_wearColor.r, mWear) * p_debugRoughness;
   baseColor = lerp(baseColor, p_wearColor, mWear);
 
@@ -144,7 +174,7 @@ void shade(V2F inputs)
     vec3 result;
 
 		if( p_debugChannel == 0 ) {
-			result = baseColor;
+      result = baseColor;
 		}
 		else if( p_debugChannel == 1 ) {
 			result = vec3(roughness);
@@ -152,10 +182,13 @@ void shade(V2F inputs)
 		else if( p_debugChannel == 2 ) {
 			result = vec3(metallic);
 		}
-    else if( p_debugChannel == 3 ) {
-			result = vec3(dirtMask.r, dirtMask.r, dirtMask.r);
+		else if( p_debugChannel == 3 ) {
+			result = vec3(occlusion);
 		}
     else if( p_debugChannel == 4 ) {
+			result = vec3(dirtMask.r, dirtMask.r, dirtMask.r);
+		}
+    else if( p_debugChannel == 5 ) {
 			result = vec3(wearMask.r, wearMask.r, wearMask.r);
 		}
     

@@ -1,14 +1,14 @@
 @echo off 
 
 :: Set path
-set substancePath="%userprofile%\Documents\Allegorithmic\Substance Painter\shelf\"
+set substancePath="%userprofile%\Documents\Adobe\Adobe Substance 3D Painter\assets\"
 
 echo Folder destination for our files are...
 echo %substancePath%
 echo:
 
 echo Moving files...
-@xcopy "shelf\" %substancePath% /S/Y/I
+@xcopy "assets\" %substancePath% /S/Y/I
 
 echo:
 echo We are done here! 
