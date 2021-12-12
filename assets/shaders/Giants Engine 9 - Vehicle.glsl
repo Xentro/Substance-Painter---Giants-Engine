@@ -25,27 +25,6 @@ uniform bool p_showWear;
 //: param custom { "default": 1.0, "label": "Wear Amount", "min": 0.0, "max": 1.0, "group": "Wear Parameters", "visible" : "input.p_showWear" }
 uniform float p_wearLevel;
 
-// Color Mask
-//: param custom { "default": true, "label": "Use Color Mask", "group": "Color Mask", "description": "<html><head/><body><p>Using this will override the Base Color.</p></body></html>" }
-uniform bool p_useColorMask;
-//: param custom { "default": [0.8, 0.55, 0.05], "label": "Color Mat 0", "widget": "color", "group": "Color Mask", "visible" : "input.p_useColorMask" }
-uniform vec3 p_colorID_0;
-//: param custom { "default": [1.0, 0.10, 0.10], "label": "Color Mat 1", "widget": "color", "group": "Color Mask", "visible" : "input.p_useColorMask" }
-uniform vec3 p_colorID_1;
-//: param custom { "default": [0.10, 1.0, 0.10], "label": "Color Mat 2", "widget": "color", "group": "Color Mask", "visible" : "input.p_useColorMask" }
-uniform vec3 p_colorID_2;
-//: param custom { "default": [0.10, 0.10, 1.0], "label": "Color Mat 3", "widget": "color", "group": "Color Mask", "visible" : "input.p_useColorMask" }
-uniform vec3 p_colorID_3;
-//: param custom { "default": [1.0, 1.0, 0.10], "label": "Color Mat 4", "widget": "color", "group": "Color Mask", "visible" : "input.p_useColorMask" }
-uniform vec3 p_colorID_4;
-//: param custom { "default": [0.05, 0.05, 0.05], "label": "Color Mat 5", "widget": "color", "group": "Color Mask", "visible" : "input.p_useColorMask" }
-uniform vec3 p_colorID_5;
-//: param custom { "default": [1.0, 0.10, 1.0], "label": "Color Mat 6", "widget": "color", "group": "Color Mask", "visible" : "input.p_useColorMask" }
-uniform vec3 p_colorID_6;
-//: param custom { "default": [0.10, 1.0, 1.0], "label": "Color Mat 7", "widget": "color", "group": "Color Mask", "visible" : "input.p_useColorMask" }
-uniform vec3 p_colorID_7;
-// uniform bool p_colorID_active[8] = {false, false, false, false, false, false, false, false};
-
 // Debug
 //: param custom { "default": false, "label": "Debug Mode", "group": "Debug", "visible" : "true" }
 uniform bool p_debugMode;
@@ -123,18 +102,7 @@ void shade(V2F inputs)
   if (p_showDirt) { dirtLevel = p_dirtLevel; }
   if (p_showWear) { wearLevel = p_wearLevel; }
 
-  vec3 baseColor  = getBaseColor(basecolor_tex, inputs.sparse_coord);
-  
-  if (p_useColorMask) {
-    vec3 colorTable[8] = {p_colorID_0, p_colorID_1, p_colorID_2, p_colorID_3, p_colorID_4, p_colorID_5, p_colorID_6, p_colorID_7};
-
-    // UV below 0, Color Mask
-    if (inputs.tex_coord.y < 0) {
-      int index = clamp(int(inputs.tex_coord.x), 0, 7);
-      baseColor = colorTable[index];
-    }
-  }
-
+  vec3 baseColor  = getBaseColor(basecolor_tex,       inputs.sparse_coord);
   float wear      = sampleWithDefault(wear_tex,       inputs.sparse_coord, WEAR_DEFAULT);
   float dirt      = sampleWithDefault(dirt_tex,       inputs.sparse_coord, DIRT_DEFAULT);
   float roughness = sampleWithDefault(roughness_tex,  inputs.sparse_coord, ROUG_DEFAULT);
