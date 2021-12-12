@@ -28,21 +28,21 @@ uniform float p_wearLevel;
 // Color Mask
 //: param custom { "default": true, "label": "Use Color Mask", "group": "Color Mask", "description": "<html><head/><body><p>Using this will override the Base Color.</p></body></html>" }
 uniform bool p_useColorMask;
-//: param custom { "default": [0.8, 0.55, 0.05], "label": "Color ID 1", "widget": "color", "group": "Color Mask", "visible" : "input.p_useColorMask" }
+//: param custom { "default": [0.8, 0.55, 0.05], "label": "Color Mat 0", "widget": "color", "group": "Color Mask", "visible" : "input.p_useColorMask" }
 uniform vec3 p_colorID_0;
-//: param custom { "default": [1.0, 0.10, 0.10], "label": "Color ID 2", "widget": "color", "group": "Color Mask", "visible" : "input.p_useColorMask" }
+//: param custom { "default": [1.0, 0.10, 0.10], "label": "Color Mat 1", "widget": "color", "group": "Color Mask", "visible" : "input.p_useColorMask" }
 uniform vec3 p_colorID_1;
-//: param custom { "default": [0.10, 1.0, 0.10], "label": "Color ID 3", "widget": "color", "group": "Color Mask", "visible" : "input.p_useColorMask" }
+//: param custom { "default": [0.10, 1.0, 0.10], "label": "Color Mat 2", "widget": "color", "group": "Color Mask", "visible" : "input.p_useColorMask" }
 uniform vec3 p_colorID_2;
-//: param custom { "default": [0.10, 0.10, 1.0], "label": "Color ID 4", "widget": "color", "group": "Color Mask", "visible" : "input.p_useColorMask" }
+//: param custom { "default": [0.10, 0.10, 1.0], "label": "Color Mat 3", "widget": "color", "group": "Color Mask", "visible" : "input.p_useColorMask" }
 uniform vec3 p_colorID_3;
-//: param custom { "default": [1.0, 1.0, 0.10], "label": "Color ID 5", "widget": "color", "group": "Color Mask", "visible" : "input.p_useColorMask" }
+//: param custom { "default": [1.0, 1.0, 0.10], "label": "Color Mat 4", "widget": "color", "group": "Color Mask", "visible" : "input.p_useColorMask" }
 uniform vec3 p_colorID_4;
-//: param custom { "default": [0.05, 0.05, 0.05], "label": "Color ID 6", "widget": "color", "group": "Color Mask", "visible" : "input.p_useColorMask" }
+//: param custom { "default": [0.05, 0.05, 0.05], "label": "Color Mat 5", "widget": "color", "group": "Color Mask", "visible" : "input.p_useColorMask" }
 uniform vec3 p_colorID_5;
-//: param custom { "default": [1.0, 0.10, 1.0], "label": "Color ID 7", "widget": "color", "group": "Color Mask", "visible" : "input.p_useColorMask" }
+//: param custom { "default": [1.0, 0.10, 1.0], "label": "Color Mat 6", "widget": "color", "group": "Color Mask", "visible" : "input.p_useColorMask" }
 uniform vec3 p_colorID_6;
-//: param custom { "default": [0.10, 1.0, 1.0], "label": "Color ID 8", "widget": "color", "group": "Color Mask", "visible" : "input.p_useColorMask" }
+//: param custom { "default": [0.10, 1.0, 1.0], "label": "Color Mat 7", "widget": "color", "group": "Color Mask", "visible" : "input.p_useColorMask" }
 uniform vec3 p_colorID_7;
 // uniform bool p_colorID_active[8] = {false, false, false, false, false, false, false, false};
 
