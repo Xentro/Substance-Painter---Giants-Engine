@@ -2,6 +2,7 @@ import lib-pbr.glsl
 import lib-emissive.glsl
 import lib-pom.glsl
 import lib-sampler.glsl
+import lib-alpha.glsl
 import lib-utils.glsl
 
 //: metadata {
@@ -13,6 +14,10 @@ import lib-utils.glsl
 #define ROUG_DEFAULT 0.6  // Painted steel?
 
 //-------- Parameters ---------------------------------------------------//
+
+//: param custom { "default": true, "label": "Enable Alpha Channel", "group": "Common Parameters", "description": "<html><head/><body><p>Activate usage of opacity map.</p></body></html>" }
+uniform bool p_HasAlpha;
+
 // Dirt
 //: param custom { "default": true, "label": "Show Dirt", "group": "Dirt Parameters" }
 uniform bool p_showDirt;
@@ -129,6 +134,10 @@ void shade(V2F inputs)
 
   if( !p_debugMode ) {
     LocalVectors vectors = computeLocalFrame(inputs);
+    
+    if (p_HasAlpha) {
+      alphaKill(inputs.sparse_coord);
+    }
 
     // Apply parallax occlusion mapping if possible
     vec3 viewTS = worldSpaceToTangentSpace(getEyeVec(inputs.position), inputs);
