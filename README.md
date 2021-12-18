@@ -31,6 +31,6 @@
 - Giants Engine 9 - Vehicle
 
 #### Smart Materials
-- GE - Dirt
-- GE - Wear
-- GE - Steel Painted
+- Dirt - Giants
+- Wear - Giants
+- Steel Painted - Giants
