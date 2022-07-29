@@ -14,4 +14,6 @@ Extremly basic explanation of the images in this folder.
 4. Not much to explain about it.
    Dirt and Wear amount is shown when "Show X" is checked.
 
-5. Select "Giants Engine 9 ..." in Output template and press "Export"
+5. When creating an new layer you want to make sure to toggle the maps you want this layer to affect after its been created, all will be selected by default.
+
+6. Select "Giants Engine 9 ..." in Output template and press "Export"

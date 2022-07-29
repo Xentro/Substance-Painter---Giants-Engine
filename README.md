@@ -34,3 +34,7 @@
 - Dirt - Giants
 - Wear - Giants
 - Steel Painted - Giants
+- Bare Steel - Giants
+- Cylinder Piston - Giants
+- Plastic - Giants
+- Rubber - Giants
