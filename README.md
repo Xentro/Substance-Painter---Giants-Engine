@@ -32,6 +32,7 @@
 
 #### Smart Materials
 - Dirt - Giants
+- Dirt2 - Giants
 - Wear - Giants
 - Steel Painted - Giants
 - Bare Steel - Giants
